@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>كلية الخدمة الإجتماعية(الخانكة)</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading...</title>
   <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL_oR_dIOdypzWyVo5x9C0L4smVVHyWU6iRrajaL9frqGFyBjczvjfx-fe7fuGbxZbmdk7D-0darDYyypSKhzssUun7GT4hPmUfs6AMufR_BX1NGHmS-PvEX95Z77N4UzcjGg4SIDHJn8TuSsjHvzc_RlL1DegAmibk4LApd0uFXD81YG7141oA5_8qz3H/s1080/15536.jpg">
-
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       height: 100vh;
+      overflow: hidden;
+      font-family: 'Cairo', sans-serif;
       display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #3d007a, #1a0033 80%);
+      position: relative;
+    }
+
+    /* نقاط وقطرات طافية */
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      50% { transform: translateY(-40vh) scale(1.3); opacity: 0.6; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    /* Splash */
+    .splash {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      background: linear-gradient(-45deg, #000428, #004e92, #000428, #004e92);
-      background-size: 400% 400%;
-      animation: gradientMove 10s ease infinite;
-      transition: opacity 1.5s ease-in-out;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .loader {
-      text-align: center;
-      position: relative;
-      opacity: 1;
-      transition: opacity 1s ease;
+      z-index: 10;
     }
 
     .logo {
@@ -43,75 +50,120 @@
       height: 160px;
       border-radius: 50%;
       background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL_oR_dIOdypzWyVo5x9C0L4smVVHyWU6iRrajaL9frqGFyBjczvjfx-fe7fuGbxZbmdk7D-0darDYyypSKhzssUun7GT4hPmUfs6AMufR_BX1NGHmS-PvEX95Z77N4UzcjGg4SIDHJn8TuSsjHvzc_RlL1DegAmibk4LApd0uFXD81YG7141oA5_8qz3H/s1080/15536.jpg") center/cover no-repeat;
-      box-shadow: 0 0 30px rgba(0,150,255,0.5);
-      animation: pulse 2.5s ease-in-out infinite;
+      box-shadow: 0 0 40px rgba(200,0,255,0.6);
+      animation: pulse 2s infinite ease-in-out;
     }
 
     @keyframes pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(0,150,255,0.4); }
-      50% { transform: scale(1.08); box-shadow: 0 0 55px rgba(0,150,255,0.8); }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 25px rgba(200,0,255,0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(200,0,255,0.9); }
     }
 
-    .spinner {
-      margin-top: 35px;
-      width: 65px;
-      height: 65px;
-      border: 6px solid rgba(255, 255, 255, 0.15);
-      border-top-color: #00b3ff;
-      border-radius: 50%;
-      animation: spin 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      margin-left: auto;
-      margin-right: auto;
+    /* شريط التحميل */
+    .progress-container {
+      width: 220px;
+      height: 10px;
+      border-radius: 10px;
+      margin-top: 40px;
+      background: rgba(255,255,255,0.15);
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(200,0,255,0.3);
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #a100ff, #ff00cc);
+      box-shadow: 0 0 15px rgba(255,0,255,0.6);
+      transition: width 0.3s ease;
     }
 
     iframe {
-      position: fixed;
-      inset: 0;
       width: 100%;
       height: 100%;
       border: none;
-      display: none;
       opacity: 0;
-      transition: opacity 2s ease;
+      transition: opacity 1.5s ease;
+    }
+
+    iframe.show {
+      opacity: 1;
+    }
+
+    .whatsapp {
+      display: none;
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25D366;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 40px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      z-index: 20;
+    }
+
+    .whatsapp:hover {
+      background: #1EBE5D;
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
-  <div class="loader">
+
+  <!-- نقاط طافية -->
+  <script>
+    for (let i = 0; i < 25; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'particle';
+      dot.style.left = Math.random() * 100 + 'vw';
+      dot.style.top = Math.random() * 100 + 'vh';
+      dot.style.animationDelay = (Math.random() * 10) + 's';
+      dot.style.width = dot.style.height = Math.random() * 6 + 3 + 'px';
+      document.body.appendChild(dot);
+    }
+  </script>
+
+  <div class="splash">
     <div class="logo"></div>
-    <div class="spinner"></div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
   </div>
 
+  <iframe id="mainFrame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+  <a href="https://wa.me/201102052489" target="_blank" class="whatsapp" id="whatsappBtn">💬 تواصل مع المطور</a>
+
   <script>
-    const TARGET_URL = "https://social-service-1.github.io/.com/";
-    const iframe = document.createElement("iframe");
-    iframe.src = TARGET_URL;
-    iframe.setAttribute("sandbox", "allow-same-origin allow-forms allow-scripts allow-popups");
-    document.body.appendChild(iframe);
+    const encodedURL = "aHR0cHM6Ly9zb2NpYWwtc2VydmljZS0xLmdpdGh1Yi5pby8uY29tLw==";
+    const decodedURL = atob(encodedURL);
+    const iframe = document.getElementById("mainFrame");
+    const progressBar = document.getElementById("progressBar");
+    const whatsappBtn = document.getElementById("whatsappBtn");
 
-    // مدة التحميل 6 ثوانٍ مع انتقال ناعم
-    setTimeout(() => {
-      document.querySelector(".loader").style.opacity = "0";
-      setTimeout(() => {
-        document.querySelector(".loader").style.display = "none";
-        iframe.style.display = "block";
-        setTimeout(() => {
-          iframe.style.opacity = "1";
-        }, 100);
-      }, 1000);
-    }, 6000);
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 2;
+      progressBar.style.width = progress + "%";
+      if (progress >= 100) {
+        clearInterval(interval);
+        iframe.src = decodedURL;
+      }
+    }, 100);
 
-    // حماية الكود من النسخ والفحص
-    window.addEventListener('contextmenu', e => e.preventDefault());
-    window.addEventListener('keydown', e => {
-      if ((e.ctrlKey && e.key.toLowerCase()==='u') ||
-          (e.ctrlKey && e.shiftKey && (e.key.toLowerCase()==='i' || e.key.toLowerCase()==='c')) ||
-          e.key === 'F12') e.preventDefault();
-    });
+    iframe.onload = () => {
+      document.querySelector('.splash').style.display = 'none';
+      iframe.classList.add('show');
+    };
+
+    iframe.onerror = () => {
+      document.querySelector('.splash').style.display = 'none';
+      whatsappBtn.style.display = 'block';
+    };
   </script>
+
 </body>
 </html>
